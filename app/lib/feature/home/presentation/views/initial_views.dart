@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
         ),
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center, 
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center, 
             mainAxisSize: MainAxisSize.min,
             children: [
