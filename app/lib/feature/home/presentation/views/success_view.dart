@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
 void main() => runApp(ChatApp());
 
 class ChatApp extends StatelessWidget {
@@ -8,7 +9,9 @@ class ChatApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Chat IA - OpenRouter',
-      theme: ThemeData(dialogBackgroundColor:Color.fromARGB(255, 196, 253, 253)),
+      theme: ThemeData(
+        dialogBackgroundColor: Color.fromARGB(255, 255, 252, 214),
+      ),
       home: ChatScreen(),
     );
   }
@@ -33,17 +36,18 @@ class _ChatScreenState extends State<ChatScreen> {
     final response = await http.post(
       url,
       headers: {
-        'Authorization': 'Bearer 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', 
+        'Authorization':
+            'Bearer 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',
         'Content-Type': 'application/json',
-        'HTTP-Referer': 'https://github.com/yela12mm/chat-bot', 
-        'X-Title': 'MiAppDeChatIA'
+        'HTTP-Referer': 'https://github.com/yela12mm/chat-bot',
+        'X-Title': 'MiAppDeChatIA',
       },
       body: jsonEncode({
         "model": "mistralai/mistral-7b-instruct",
         "messages": [
           {"role": "system", "content": "Responde como un asistente útil."},
-          {"role": "user", "content": userMessage}
-        ]
+          {"role": "user", "content": userMessage},
+        ],
       }),
     );
 
@@ -59,7 +63,7 @@ class _ChatScreenState extends State<ChatScreen> {
       setState(() {
         _messages.add({
           'role': 'assistant',
-          'content': '❌ Error al responder (${response.statusCode})'
+          'content': '❌ Error al responder (${response.statusCode})',
         });
       });
     }
@@ -70,8 +74,11 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 253, 253, 249),
-      appBar: AppBar(backgroundColor: Color.fromARGB(255, 177, 236, 248) ,title:Text('Chat IA - OpenRouter')),
+      backgroundColor: Color.fromARGB(255, 255, 222, 245),
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 252, 201, 236),
+        title: Text('𝙲𝚑𝚊𝚝 𝙼𝚘𝚕𝚒'),
+      ),
       body: Column(
         children: [
           Expanded(
@@ -82,13 +89,16 @@ class _ChatScreenState extends State<ChatScreen> {
                 final isUser = message['role'] == 'user';
 
                 return Align(
-                  alignment:
-                      isUser ? Alignment.centerRight : Alignment.centerLeft,
+                  alignment: isUser
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
                   child: Container(
                     padding: EdgeInsets.all(12),
                     margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                     decoration: BoxDecoration(
-                      color: isUser ? const Color.fromARGB(255, 229, 250, 253) : const Color.fromARGB(255, 203, 241, 241),
+                      color: isUser
+                          ? const Color.fromARGB(255, 243, 177, 208)
+                          : const Color.fromARGB(255, 255, 255, 205),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(message['content'] ?? ''),
@@ -104,8 +114,9 @@ class _ChatScreenState extends State<ChatScreen> {
                 Expanded(
                   child: TextField(
                     controller: _controller,
-                    decoration:
-                        InputDecoration(hintText: 'Escribe tu mensaje...'),
+                    decoration: InputDecoration(
+                      hintText: 'Escribe tu mensaje...',
+                    ),
                   ),
                 ),
                 IconButton(
@@ -114,7 +125,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     final text = _controller.text.trim();
                     if (text.isNotEmpty) sendMessage(text);
                   },
-                )
+                ),
               ],
             ),
           ),
